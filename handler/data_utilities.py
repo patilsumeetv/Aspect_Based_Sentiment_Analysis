@@ -12,8 +12,8 @@ def data_reader(path):
 
     Returns
     -------
-    reviewText: list
-        The list of the reviews present in dataset
+    final_df: pandas dataframe
+        The dataframe of all readed json files from given location
     """
 
     final_df = None
@@ -23,5 +23,4 @@ def data_reader(path):
         temp_df = pd.read_json(os.path.join(path, file_name), lines=True)
         final_df = pd.concat([final_df, temp_df])
 
-    reviewText = final_df["reviewText"].values
-    return reviewText
+    return final_df
