@@ -24,3 +24,23 @@ def data_reader(path):
         final_df = pd.concat([final_df, temp_df])
 
     return final_df
+
+def load_reviews(path):
+    """
+    This function is used to load the dataset from given directory.
+    Then the review text is seperated in a list and returned.
+
+    Parameters
+    ----------
+    path: str, required
+        The location of review json files on the system
+
+    Returns
+    -------
+    reviewText: list
+        The list of reviews from the dataset
+    """
+
+    df = data_reader(path)
+    reviewText = df["reviewText"].values
+    return reviewText
