@@ -2,6 +2,20 @@ import os
 import pandas as pd
 
 def data_reader(path):
+    """
+    This function is used to read the json files from the dataset.
+
+    Parameters
+    ----------
+    path: str, required
+        The location of review json files on the system
+
+    Returns
+    -------
+    reviewText: list
+        The list of the reviews present in dataset
+    """
+
     final_df = None
     json_files = [file for file in os.listdir(path) if file.endswith('.json')]
 
