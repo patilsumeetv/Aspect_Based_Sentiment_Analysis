@@ -16,21 +16,21 @@ def regex_ops(string):
     string = re.sub(r"\s{2,}", " ", string)
     return string.strip().lower()
 
-def clean_reviews(reviewList):
+def clean_text(textList):
     """
-    Funtion for cleaning of review text from the garbage values.
+    Funtion for cleaning of text from the garbage values.
     It uses regex_ops() function for performing regex operations.
 
     Parameters
     ----------
-    reviewList: ndarray, required
-        A numpy ndarray containing review sentences
+    textList: ndarray, required
+        A numpy ndarray containing text sentences
 
     Returns
     -------
-    cleanedReviewList: ndarray
-        A numpy ndarray of cleaned review sentences using regex operations
+    cleanedTextList: ndarray
+        A numpy ndarray of cleaned text sentences using regex operations
     """
 
-    cleanedReviewList = [regex_ops(sent) for sent in reviewList]
-    return cleanedReviewList
+    cleanedTextList = [regex_ops(sent) for sent in textList]
+    return cleanedTextList
