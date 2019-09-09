@@ -15,3 +15,7 @@ def regex_ops(string):
     string = re.sub(r"\?", " \? ", string)
     string = re.sub(r"\s{2,}", " ", string)
     return string.strip().lower()
+
+def clean_reviews(reviewList):
+    cleanedReviewList = [regex_ops(sent) for sent in reviewList]
+    return cleanedReviewList
