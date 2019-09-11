@@ -1,4 +1,5 @@
 import re
+from tflearn.data_utils import VocabularyProcessor
 
 def regex_ops(string):
     string = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", string)
@@ -34,3 +35,6 @@ def clean_text(textList):
 
     cleanedTextList = [regex_ops(sent) for sent in textList]
     return cleanedTextList
+
+def vocab_generator(textList, window):
+    return textVocab
