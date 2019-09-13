@@ -1,6 +1,6 @@
 import re
 import numpy as np
-from tflearn.data_utils import VocabularyProcessor
+import tensorflow as tf
 
 def regex_ops(string):
     string = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", string)
@@ -39,9 +39,9 @@ def clean_text(textList):
 
 def vocab_generator(textList, window):
     # max sentence length
-    max_sent_length = 100
+    mlen = 100
     # vocab processor object
-    vocab_processor = VocabularyProcessor(max_sent_length)
+    vocab_processor = tf.contrib.learn.preprocessing.VocabularyProcessor(mlen)
     # converting words to indices
     textVocab = list(vocab_processor.fit_transform(textList))
     # setting vocab size
