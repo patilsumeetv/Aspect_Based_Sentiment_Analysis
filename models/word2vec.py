@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-def build_word2vec():
+def build_word2vec(vocab_size, embedding_size=128, num_samples=64, learning_rate=0.001):
     # pivot/input words and target/output words
     x = tf.placeholder(tf.int32, shape = [None,], name = "x_pivot_idxs")
     y = tf.placeholder(tf.int32, shape = [None,], name = "y_target_idxs")
