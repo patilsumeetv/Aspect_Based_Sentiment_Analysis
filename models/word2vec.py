@@ -1,4 +1,5 @@
 import tensorflow as tf
+from sklearn.model_selection import train_test_split
 
 def build_word2vec(vocab_size, embedding_size=128, num_samples=64, learning_rate=0.001):
     # pivot/input words and target/output words
@@ -41,5 +42,32 @@ def build_word2vec(vocab_size, embedding_size=128, num_samples=64, learning_rate
     return nce_optimizer, nce_loss, x, y, sess
 
 
-def train_word2vec():
+def train_word2vec(input, output, x, y, optimizer, loss, sess, batch_size=32, num_epochs=5):
+    # creating train test data
+    X_train, X_test, y_train, y_test = train_test_split(input, output)
+
+    # calculating number of batches required for training
+    num_batches = len(X_train) // batch_size
+
+    # weight saver object
+    saver = tf.train.Saver()
+
+    for epoch in range(num_epochs):
+        print("Starting Epoch {}".format(epoch))
+        for batch in range(num_batches):
+            if batch != range(num_batches-1):
+                x_batch = X_train[batch*batch_size:batch*batch_size+batch_size]
+                y_batch = y_train[batch*batch_size:batch*batch_size+batch_size]
+            else:
+                x_batch = X_train[batch*batch_size:]
+                y_batch = y_train[batch*batch_size:]
+
+            # run word2vec neural network
+            _ , l = sess.run([optimizer, loss], feed_dict={x:x_batch, y:y_batch})
+
+            if batch > 0 and batch % 1000 == 0:
+                print("Step {} of {}, LOSS: {}".format(batch, num_batches, l))
+        # saving the weights
+        save_path = saver.save(sess, "logdir\\word2vec_model.ckpt")
+
     return
