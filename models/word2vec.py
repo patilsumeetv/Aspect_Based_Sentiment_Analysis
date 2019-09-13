@@ -39,3 +39,7 @@ def build_word2vec(vocab_size, embedding_size=128, num_samples=64, learning_rate
     sess.run(tf.global_variables_initializer())
 
     return nce_optimizer, nce_loss, x, y, sess
+
+
+def train_word2vec():
+    return
