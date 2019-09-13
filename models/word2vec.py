@@ -28,4 +28,14 @@ def build_word2vec():
                                              num_sampled = num_samples),
                                              name = "nce_loss_function")
 
-    return
+    # NCE Optimizer Function
+    nce_optimizer = tf.contrib.layers.optimize_loss(global_step = tf.train.get_global_step(),
+                                                    loss = nce_loss, name = "nce_optimizer",
+                                                    optimizer = "Adam", clip_gradients=5.0,
+                                                    learning_rate = learning_rate)
+
+    # tensorflow session
+    sess = tf.Session()
+    sess.run(tf.global_variables_initializer())
+
+    return nce_optimizer, nce_loss, x, y, sess
