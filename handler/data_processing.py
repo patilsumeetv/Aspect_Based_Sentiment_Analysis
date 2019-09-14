@@ -85,3 +85,6 @@ def vocab_generator(textList, window):
                 target_words.append(targets[c])
 
     return pivot_words, target_words, vocab_size
+
+def tokenizerProcess():
+    return
