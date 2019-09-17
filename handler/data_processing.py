@@ -1,6 +1,9 @@
 import re
+import string
 import numpy as np
 import tensorflow as tf
+from nltk import word_tokenize
+from nltk.corpus import stopwords
 
 def regex_ops(string):
     string = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", string)
@@ -86,5 +89,27 @@ def vocab_generator(textList, window):
 
     return pivot_words, target_words, vocab_size
 
-def tokenizerProcess():
-    return
+def tokenizerProcess(textList, vocab_size=10000):
+    # list to hold clean text
+    cleanText = []
+    # list of stopwords and unwanted words
+    stop = stopwords.words('english') + list(string.punctuation)
+
+    # removing stopwords and punctuations
+    for t in textList:
+        cleanText.append(" ".join([i for i in word_tokenize(t.lower()) \
+                                   if i not in stop and i[0] != "'"]))
+
+    # instantiate keras tokenizer
+    T = tf.keras.preprocessing.text.Tokenizer(num_words=vocab_size)
+
+    # fit the tokenizer with clean text
+    T.fit_on_texts(cleanText)
+
+    # turn our input text into sequence of index integers
+    sequences = T.texts_to_sequences(cleanText)
+
+    word_to_idx = T.word_index
+    idx_to_word = {v: k for k, v in word_to_idx.items()}
+
+    return sequences, word_to_idx, idx_to_word, T
